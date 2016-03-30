@@ -1,11 +1,18 @@
 var mysql = require('mysql');
 var exports = module.exports = {};
+var con = {};
+var users;
+module.exports = {
+	Connection : Connection,
+    getUsers: getUsers
+}
 
-    exports.Connection = function(){
-		var con = mysql.createConnection({
+    function Connection(){
+		con = mysql.createConnection({
 			  host: "localhost",
 			  user: "root",
-			  password: "root123"
+			  password: "root123",
+			  database : "node"
 		     });
 
 			con.connect(function(err){
@@ -13,9 +20,17 @@ var exports = module.exports = {};
 			    console.log('Error connecting to Db');
 			    return;
 			  }
-			  console.log('Connection established');
+			  console.log('DB Connection established');
 			});
-
     }
+     function getUsers () {
+     	 con.query('SELECT * FROM users',function(err, rows) {
+            if (err) {
+                callback(err, null);
+            } else 
+                return mysql.format(rows);
+        });
+  }
+
 
 
