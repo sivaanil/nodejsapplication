@@ -1,5 +1,5 @@
 var express = require('express');
-var db = require('./public/scripts/db.js');
+	var db = require('./db.js');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -17,9 +17,12 @@ app.get('/', function(req, res){
   res.redirect('/index.html');
 });
 app.get('/fetchusers',function(req, res){
-		users = db.getUsers();
-		console.log(users);
-		res.end();
+		db.getUsers(function (finalData) {
+			res.json(finalData);
+		});
+
+
+
 });
 app.listen(1321);
 console.log("Server Running on port 1321");

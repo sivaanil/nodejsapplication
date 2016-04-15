@@ -1,5 +1,21 @@
+
  <div class="container" ui-view="">
-			<div ng-repeat="user in players">
-				{{user.name}}
-			</div>
+	 <h3>Users List</h3>
+	 <table class="table table-bordered table-hover table-striped">
+
+		 <tr>
+			 <th>#</th>
+			 <th>First Name</th>
+			 <th>Last Name</th>
+			 <th>Email</th>
+			 <th>Phone</th>
+		 </tr>
+			<tr ng-repeat="user in users">
+						<td>{{user.id}}</td>
+						<td>{{user.first_name}}</td>
+						<td>{{user.last_name}}</td>
+						<td>{{user.email}}</td>
+						<td>{{user.phone}}</td>
+			</tr>
+	 </table>
  </div>
