@@ -8,6 +8,11 @@ raControllers.controller('userController', function($scope,userService,$routePar
 		userService.getData().success(function(data){
 				$scope.users = data;
 		});
+
+	$scope.edit = function(id){
+		console.log('+');
+		console.log(id);
+	};
 		
 	});
 

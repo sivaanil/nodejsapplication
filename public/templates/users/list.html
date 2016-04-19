@@ -7,11 +7,13 @@
 			 <th>#</th>
 			 <th>Name</th>
 			 <th>Email</th>
+			 <th>Actions</th>
 		 </tr>
 			<tr ng-repeat="user in users">
 						<td>{{user.ID}}</td>
 						<td>{{user.display_name}}</td>
 						<td>{{user.user_email}}</td>
+						<td colspan="2"><a href="#" ng-click="edit({{user.ID}})"><i class="fa fa-wrench" aria-hidden="true"></i> </a>    <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
 			</tr>
 	 </table>
  </div>

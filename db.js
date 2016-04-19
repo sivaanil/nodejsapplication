@@ -25,7 +25,7 @@ module.exports = {
     }
      function getUsers (cb) {
 		 var final = [];
-     	 con.query('SELECT * FROM users',function(err, rows) {
+     	 con.query('SELECT * FROM wp_users',function(err, rows) {
             if (err) {
                 cb(err, null);
             } else {
