@@ -10,7 +10,7 @@
         controller: 'userController'
       }),
     $routeProvider.
-        when('/user/update/:ID', {
+        when('/user/update/:id', {
             templateUrl: 'templates/users/create.html',
             controller: 'userController'
         }).
