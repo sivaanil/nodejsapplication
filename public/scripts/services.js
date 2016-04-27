@@ -12,4 +12,13 @@ this.getData = function() {
         
     
  }
+    this.getUserDetails = function(id) {
+
+        return $http({
+            method: 'GET',
+            url: 'http://localhost:1321/fetchuser/'+id,
+        })
+
+
+    }
 });

@@ -11,9 +11,11 @@ raControllers.controller('userController', function($scope,userService,$routePar
 
 	$scope.edit = function(id){
 		$location.path('user/update/'+id);
-		userService.getUserDetails().success(function (response) {
+		userService.getUserDetails(id).success(function (response) {
+		 $scope.myprofile = response[0];
 
 		})
+
 
 
 	};

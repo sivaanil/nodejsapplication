@@ -4,7 +4,8 @@ var con = {};
 var users;
 module.exports = {
 	Connection : Connection,
-    getUsers: getUsers
+    getUsers: getUsers,
+    getUser: getUser
 }
 
     function Connection(){
@@ -33,6 +34,17 @@ module.exports = {
 			}
         });
   }
+
+function getUser (userId,cb) {
+	var final = [];
+	con.query('SELECT * FROM wp_users where id='+userId, function (err, rows) {
+		if (err) {
+			cb(err, null);
+		} else {
+			cb(rows);
+		}
+	});
+}
 
 
 

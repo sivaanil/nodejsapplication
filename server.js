@@ -26,7 +26,9 @@ app.get('/fetchusers',function(req, res){
 // TO fetch single user details
 app.get('/fetchuser/:id',function(req, res){
 	var userId = req.params.id;
-	
+	db.getUser(userId,function (finalData) {
+		res.json(finalData);
+	});
 
 });
 app.listen(1321);
