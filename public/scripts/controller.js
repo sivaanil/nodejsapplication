@@ -10,12 +10,20 @@ raControllers.controller('userController', function($scope,userService,$routePar
 		});
 
 	$scope.edit = function(id){
-		$location.path('user/update/'+id);
+
+		$scope.profile = {};
+		$scope.msg = "sdjdsldjskj";
 		userService.getUserDetails(id).success(function (response) {
-		 $scope.myprofile = response[0];
-
+		 $scope.profile = response[0];
+			console.log($scope.profile);
 		})
-
+		$scope.$on('$routeChangeStart', function() {
+			userService.getUserDetails(id).success(function (response) {
+				$scope.profile = response[0];
+				console.log($scope.profile);
+			})
+		});
+		//$location.path('user/update/'+id);
 
 
 	};

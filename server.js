@@ -31,5 +31,9 @@ app.get('/fetchuser/:id',function(req, res){
 	});
 
 });
+
+app.get('/user/update/:id',function (req,res) {
+	console.log('sdsd');
+})
 app.listen(1321);
 console.log("Server Running on port 1321");
