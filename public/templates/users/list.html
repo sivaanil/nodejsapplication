@@ -13,7 +13,7 @@
 						<td>{{user.ID}}</td>
 						<td>{{user.display_name}}</td>
 						<td>{{user.user_email}}</td>
-						<td colspan="2"><a ng-href="#/user/update/{{user.ID}}" href="#/user/update/{{user.ID}}"><i class="fa fa-wrench" aria-hidden="true"></i> </a>    <button ng-href="#"><i class="fa fa-trash-o" aria-hidden="true"></i></button></td>
+						<td colspan="2"><a ng-click=edit(user.ID)><i class="fa fa-wrench" aria-hidden="true"></i> </a>    <button ng-href="#"><i class="fa fa-trash-o" aria-hidden="true"></i></button></td>
 			</tr>
 	 </table>
  </div>
