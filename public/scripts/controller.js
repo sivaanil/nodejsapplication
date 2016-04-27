@@ -4,29 +4,19 @@
 
 var raControllers = angular.module('raApp.controllers', []);
 
-raControllers.controller('userController', function($scope,userService,$routeParams,$location) {
+raControllers.controller('userController', function($scope,userService,$routeParams) {
 		userService.getData().success(function(data){
 				$scope.users = data;
 		});
-
-	$scope.edit = function(id){
-
-		$scope.profile = {};
-		$scope.msg = "sdjdsldjskj";
-		userService.getUserDetails(id).success(function (response) {
-		 $scope.profile = response[0];
-			console.log($scope.profile);
+    $scope.paraer = $routeParams || '';
+	$scope.profile = {};
+	if($scope.paraer != ''){
+		userService.getUserDetails($scope.paraer.id).success(function (response) {
+			$scope.profile = response[0];
 		})
-		$scope.$on('$routeChangeStart', function() {
-			userService.getUserDetails(id).success(function (response) {
-				$scope.profile = response[0];
-				console.log($scope.profile);
-			})
-		});
-		//$location.path('user/update/'+id);
 
+	}
 
-	};
 		
 	});
 
