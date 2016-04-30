@@ -19,7 +19,9 @@ app.get('/', function(req, res){
 });
 // To fetch all users
 app.get('/fetchusers',function(req, res){
-		db.getUsers(function (finalData) {
+		db.getUsers(function (data) {
+			finalData['data'] = data;
+			finalData['datalist'] = data.length;
 			res.json(finalData);
 		});
 });

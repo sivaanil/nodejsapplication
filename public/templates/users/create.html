@@ -1,4 +1,4 @@
-<div ng-init="initEmployeeData()">
+<div>
     <div class="row">
         <div class="col-md-12">
             <div class="row">
@@ -6,7 +6,8 @@
                 <div class="col-sm-12">
                     <div class="panel">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Add New Employee</h3>
+                            <h3 ng-if="profile.ID" class="panel-title">Update User {{profile.ID}}</h3>
+                            <h3 ng-if="!profile.ID" class="panel-title">Add New User</h3>
                         </div>
 
                         <form class="form-horizontal">
@@ -23,25 +24,23 @@
 
                                 <div class="form-group col-sm-12">
                                     <label class="col-sm-3 control-label"
-                                           ng-class="{mandate:employeeDto.userName === undefined || employeeDto.userName === '' || employeeDto.userName == null}">Username:<!-- <span
-										ng-show="employeeDto.userName === undefined || employeeDto.userName === '' || employeeDto.userName == null"
-										style="color: red">*</span> --></label>
+                                           ng-class="">Username:</label>
                                     <div class="col-sm-3">
                                         <input type="text" class="form-control input-sm" id="userName"
-                                               placeholder="Username" ng-model="employeeDto.userName"
+                                               placeholder="Username" ng-model="profile.user_login"
                                                ng-blur="isemployeeUsernameexist(employeeDto.userName)">
                                     </div>
                                 </div>
 
                                 <div class="form-group col-sm-12">
                                     <label class="col-sm-3 control-label"
-                                           ng-class="{mandate:employeeDto.userName === undefined || employeeDto.userName === '' || employeeDto.userName == null}">Email:<!-- <span
+                                           ng-class="">Email:<!-- <span
 										ng-show="employeeDto.userName === undefined || employeeDto.userName === '' || employeeDto.userName == null"
 										style="color: red">*</span> --></label>
                                     <div class="col-sm-3">
                                         <input type="text" class="form-control input-sm" id="email_id"
-                                               placeholder="Email" ng-model="employeeDto.userName"
-                                               ng-disabled="true"> <b>@raybiztech.com</b>
+                                               placeholder="Email" ng-model="profile.user_email" required
+                                               ng-disabled="true">
                                     </div>
                                 </div>
 
@@ -56,30 +55,20 @@
                                         <div class="col-sm-3">
                                             <input type="text" class="form-control input-sm"
                                                    id="first_name" placeholder="First Name"
-                                                   ng-model="employeeDto.firstName" ng-pattern="/^[A-z ]+$/">
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <input type="text" class="form-control input-sm"
-                                                   id="middle_name" placeholder="Middle Name"
-                                                   ng-model="employeeDto.middleName">
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <input type="text" class="form-control input-sm"
-                                                   id="last_name" placeholder="Last Name"
-                                                   ng-model="employeeDto.lastName" ng-pattern="/^[A-z ]+$/">
+                                                   ng-model="profile.display_name" ng-pattern="/^[A-z ]+$/">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="form-group col-sm-12">
                                     <label class="col-sm-3 control-label"
-                                           ng-class="{mandate:employeeDto.gender === undefined || employeeDto.gender === ''}">Gender
+                                           ng-class="">Gender
                                         :<!-- <span
 										ng-show="employeeDto.gender === undefined || employeeDto.gender === ''"
 										style="color: red">*</span> -->
                                     </label>
                                     <div class="col-sm-3">
-                                        <select class="form-control" ng-model="employeeDto.gender">
+                                        <select class="form-control" ng-model="profile.gender">
                                             <option value="">Select Gender</option>
                                             <option>Female</option>
                                             <option>Male</option>
@@ -89,7 +78,7 @@
 
                                 <div class="form-group col-sm-12">
                                     <label class="col-sm-3 control-label"
-                                           ng-class="{mandate:employeeDto.dob === undefined || employeeDto.dob === ''}">Birthday:<!-- <span
+                                           ng-class="">Birthday:<!-- <span
 										ng-show="employeeDto.dob === undefined || employeeDto.dob === ''"
 										style="color: red">*</span> --></label>
                                     <div class="col-sm-3">
@@ -101,142 +90,12 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="form-group col-sm-12">
-                                    <label class="col-sm-3 control-label"
-                                           ng-class="{mandate:employeeDto.dateOfJoining === undefined || employeeDto.dateOfJoining === ''}">Date
-                                        of Joining:<!-- <span
-										ng-show="employeeDto.dateOfJoining === undefined || employeeDto.dateOfJoining === ''"
-										style="color: red">*</span> -->
-                                    </label>
-                                    <div class="col-sm-3">
-                                        <div class="date input-group">
-                                            <input type="text" class="form-control input-sm"
-                                                   ng-model="employeeDto.dateOfJoining"
-                                                   placeholder="dd/mm/yyyy" required readonly="true"> <span
-                                                class="input-group-addon"><i class="fa fa-calendar"></i>
-											</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group col-sm-12">
-                                    <label class="col-sm-3 control-label"
-                                           ng-class="{mandate:employeeDto.departmentName === undefined || employeeDto.departmentName === ''}">Department:<!-- <span
-										ng-show="employeeDto.departmentName === undefined || employeeDto.departmentName === ''"
-										style="color: red">*</span> -->
-                                    </label>
-                                    <div class="col-sm-3">
-                                        <select class="form-control"
-                                                ng-model="employeeDto.departmentName">
-                                            <option value="">Select Department</option>
-                                            <option>Accounts</option>
-                                            <option>Administrative</option>
-                                            <option>Designing</option>
-                                            <option>Development</option>
-                                            <option>HR</option>
-                                            <option>Networking</option>
-                                            <option>Sales</option>
-                                            <option>Testing</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group col-sm-12">
-                                    <label class="col-sm-3 control-label"
-                                           ng-class="{mandate:employeeDto.role === undefined || employeeDto.role === ''}">Role:<!-- <span
-										ng-show="employeeDto.role === undefined || employeeDto.role === ''"
-										style="color: red">*</span> -->
-                                    </label>
-                                    <div class="col-sm-3">
-                                        <!--                                        <select class="form-control" ng-model="employeeDto.role">
-                                                                                    <option value="">Select Role</option>
-                                                                                    <option value="admin">Admin</option>
-                                                                                    <option>Employee</option>
-                                                                                    <option>Finance</option>
-                                                                                    <option>HR</option>
-                                                                                    <option value="IT_admin">IT Admin</option>
-                                                                                    <option>Manager</option>
-                                                                                    <option value="OFC_admin">Office Admin</option>
-                                                                                </select>-->
-                                        <select class="form-control" ng-model="employeeDto.role"
-                                                ng-options="roles.name as roles.name for roles in RolesList">
-                                            <option value="">Select Role</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group col-sm-12">
-                                    <label class="col-sm-3 control-label"
-                                           ng-class="{mandate:employeeDto.manager === undefined || employeeDto.manager === ''||disableView}">Reporting
-                                        Manager:<!-- <span
-										ng-show="employeeDto.manager === undefined || employeeDto.manager === ''"
-										style="color: red">*</span> -->
-                                    </label>
-                                    <div class="col-sm-3">
-                                        <input type="text" ng-model="employeeDto.manager"
-                                               placeholder="Type name here for auto fill"
-                                               typeahead=" item as item.firstName+' '+item.lastName for item in allReportingManagers | filter:$viewValue | limitTo:8"
-                                               ng-click="removeMessage()" class="form-control input-sm">
-                                    </div>
-                                </div>
-
-                                <div class="form-group col-sm-12">
-                                    <label class="col-sm-3 control-label"
-                                           ng-class="{mandate:employeeDto.employmentTypeName === undefined || employeeDto.employmentTypeName === ''}">Employment
-                                        Type:<!-- <span
-										ng-show="employeeDto.employmentTypeName === undefined || employeeDto.employmentTypeName === ''"
-										style="color: red">*</span> -->
-                                    </label>
-                                    <div class="col-sm-3">
-                                        <select class="form-control"
-                                                ng-model="employeeDto.employmentTypeName">
-                                            <option value="">Select Type</option>
-                                            <option>Permanent</option>
-                                            <option>Temporary</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group col-sm-12">
-                                    <label class="col-sm-3 control-label"
-                                           ng-class="{mandate:employeeDto.jobTypeName === undefined || employeeDto.jobTypeName === ''}">Job
-                                        Type:<!-- <span
-										ng-show="employeeDto.jobTypeName === undefined || employeeDto.jobTypeName === ''"
-										style="color: red">*</span> -->
-                                    </label>
-                                    <div class="col-sm-3">
-                                        <select class="form-control"
-                                                ng-model="employeeDto.jobTypeName">
-                                            <option value="">Select Job Type</option>
-                                            <option>Full Time</option>
-                                            <option>Part Time</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group col-sm-12">
-                                    <label class="col-sm-3 control-label"
-                                           ng-class="{mandate:employeeDto.designation === undefined || employeeDto.designation === ''}">Designation:<!-- <span
-										ng-show="employeeDto.designation === undefined || employeeDto.designation === ''"
-										style="color: red">*</span> -->
-                                    </label>
-                                    <div class="col-sm-3">
-                                        <select class="form-control"
-                                                ng-model="employeeDto.designation" required>
-                                            <option value="">Select Designation</option>
-                                            <option ng-repeat="designation in designations">{{
-                                                designation}}</option>
-                                        </select>
-                                    </div>
-                                </div>
-
                                 <div class="clearfix"></div>
 
                                 <div class="mb20">
                                     <div class="col-sm-9 col-sm-offset-3">
                                         <button ng-click="saveNewEmployee()"
-                                                ng-disabled=" !employeeDto.userName || !employeeDto.firstName || !employeeDto.lastName || !employeeDto.gender || !employeeDto.dob || !employeeDto.departmentName || !employeeDto.employmentTypeName || !employeeDto.jobTypeName || !employeeDto.designation || !employeeDto.dateOfJoining || !employeeDto.manager ||!employeeDto.role || disableView"
+                                                ng-disabled=" !profile.user_nicename || !profile.gender || disableView"
                                                 class="btn btn-success" type="submit">Save</button>
                                     </div>
                                 </div>
