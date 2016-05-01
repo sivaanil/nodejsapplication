@@ -1,21 +1,23 @@
-
  <div class="container" ui-view="">
 	 <h3>Users List</h3>
 	 <table class="table table-bordered table-hover table-striped">
 
 		 <tr>
-			 <th>#</th>
+			 <th  ng-click="sort('ID')">#
+				 <span class="glyphicon sort-icon" ng-show="sortKey=='ID'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+			 </th>
 			 <th>Name</th>
 			 <th>Email</th>
 			 <th>Actions</th>
 		 </tr>
-		 	<tr dir-paginate="user in customers |  orderBy: 'display_name' | itemsPerPage: itemsPerPage">
+		 	<tr dir-paginate="user in users |  orderBy: 'display_name' | itemsPerPage: itemsPerPage" >
 						<td>{{user.ID}}</td>
 						<td>{{user.display_name}}</td>
 						<td>{{user.user_email}}</td>
 						<td colspan="2"><a ng-href='#/user/update/{{user.ID}}')><i class="fa fa-wrench" aria-hidden="true"></i> </a>    <button ng-href="#"><i class="fa fa-trash-o" aria-hidden="true"></i></button></td>
 			</tr>
 	 </table>
-	 <dir-pagination-controls></dir-pagination-controls>
+
+	 <dir-pagination-controls current-page="pagination.current"  on-page-change="pageChanged(newPageNumber)" template-url="templates/dir-paginate.html"></dir-pagination-controls>
 
  </div>
