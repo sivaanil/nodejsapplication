@@ -20,12 +20,11 @@ app.get('/', function(req, res){
 // To fetch all users
 app.get('/fetchusers',function(req, res){
 		db.getUsers(function (data) {
-			for (i=0;i<=0;i++) {
-				finalData = eval(data);
-				console.log(finalData.length);
+			var finalData = {
+				'users':data,
+				'count': data.length
 			}
-
-			res.json(finalData);
+			res.send(finalData);
 		});
 });
 // TO fetch single user details
