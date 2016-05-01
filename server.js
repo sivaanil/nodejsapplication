@@ -1,5 +1,7 @@
 var express = require('express');
-	var db = require('./db.js');
+var config = require('./config.json');
+console.log(config.host, config.port);
+var db = require('./db.js');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -39,5 +41,5 @@ app.get('/fetchuser/:id',function(req, res){
 app.get('/user/update/:id',function (req,res) {
 	console.log('sdsd');
 })
-app.listen(1321);
+app.listen(config.port,config.host);
 console.log("Server Running on port 1321");

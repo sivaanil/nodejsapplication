@@ -5,7 +5,6 @@
 var raControllers = angular.module('raApp.controllers', []);
 
 raControllers.controller('userController', function($scope,userService,$routeParams,$rootScope) {
-	$scope.customers = {};
 	$scope.userscount = 0;
 
 	// pagination variables
@@ -15,27 +14,17 @@ raControllers.controller('userController', function($scope,userService,$routePar
 		,$scope.pageSize = 5;
 
 	$scope.pagination = {
-		current : 5
+		current : 1
 	};
-	this.q = $routeParams.q || '';
-
-	var params = {
-		offset : (($scope.currentPage - 1) * $scope.pageSize),
-		limit : $scope.pageSize,
-		q : this.q
-	};
-
 	$scope.pageChanged = function(newPageNumber) {
-		console.log(newPageNumber);
 		$scope.currentPage = newPageNumber;
-	};
+	}
 
-
-		userService.getData(params).success(function(data){
-				$scope.users = data.users;
-				$scope.userscount = data.count;
-		});
-    $scope.paraer = $routeParams || '';
+	userService.getData().success(function(data){
+		$scope.users = data.users;
+		$scope.userscount = data.count;
+	});
+	$scope.paraer = $routeParams || '';
 	$scope.profile = {};
 
 

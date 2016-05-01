@@ -10,7 +10,8 @@
 			 <th>Email</th>
 			 <th>Actions</th>
 		 </tr>
-		 	<tr dir-paginate="user in users |  orderBy: 'display_name' | itemsPerPage: itemsPerPage" >
+		 	<!--<tr dir-paginate="user in users |  orderBy: 'display_name' | itemsPerPage: itemsPerPage"  total-items="userscount" current-page="pagination.current">-->
+		 	<tr dir-paginate="user in users |  orderBy: 'display_name' | itemsPerPage: itemsPerPage">
 						<td>{{user.ID}}</td>
 						<td>{{user.display_name}}</td>
 						<td>{{user.user_email}}</td>
