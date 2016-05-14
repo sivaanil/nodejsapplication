@@ -11,9 +11,13 @@ var underscore = require('underscore');
 var url = require('url');
 var app = express();
 var cors = require('cors');
+var crypto = require('crypto');
 app.use(cors({origin: '*'}));
 
 db.Connection();
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 app.use(express.static(__dirname + '/public'));
             
 app.get('/', function(req, res){
@@ -37,6 +41,14 @@ app.get('/fetchuser/:id',function(req, res){
 	});
 
 });
+
+app.post('/user/createuser',function (req,res) {
+	var newUser = req.body.newUserDetails;
+	db.createUser(newUser,function (finalData) {
+		res.json(finalData);
+	});
+})
+
 
 app.get('/user/update/:id',function (req,res) {
 	console.log('sdsd');

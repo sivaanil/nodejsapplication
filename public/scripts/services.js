@@ -22,4 +22,15 @@ this.getData = function() {
 
 
     }
+
+    this.createUser = function(newUserData){
+        var newUserDetails = {
+            'newUserDetails' : newUserData
+        };
+        return $http({
+            method: 'POST',
+            data: newUserDetails,
+            url: host+'/user/createuser/'
+        })
+    }
 });

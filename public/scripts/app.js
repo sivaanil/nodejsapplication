@@ -13,7 +13,12 @@
         when('/user/update/:id', {
             templateUrl: 'templates/users/create.html',
             controller: 'userController'
-        }).
+        }),
+    $routeProvider.
+    when('/user/create', {
+        templateUrl: 'templates/users/create.html',
+        controller: 'userController'
+    }).
       otherwise({
         redirectTo: '/'
       });

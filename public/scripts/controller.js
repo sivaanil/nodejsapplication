@@ -4,7 +4,7 @@
 
 var raControllers = angular.module('raApp.controllers', []);
 
-raControllers.controller('userController', function($scope,userService,$routeParams,$rootScope) {
+raControllers.controller('userController', function($scope,userService,$routeParams,$rootScope,$location) {
 	$scope.userscount = 0;
 
 	// pagination variables
@@ -35,7 +35,16 @@ raControllers.controller('userController', function($scope,userService,$routePar
 		})
 
 	}
-	});
+
+	$scope.submitForm  = function () {
+		userService.createUser($scope.profile).success(function (response) {
+			if(response.insertId && response.affectedRows > 0){
+				$rootScope.user_registered = 1;
+				$location.url('/users');
+			}
+		})
+	}
+});
 
 
 

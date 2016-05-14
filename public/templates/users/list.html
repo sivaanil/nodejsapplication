@@ -1,5 +1,7 @@
- <div class="container" ui-view="">
+<a ng-href="#/user/create" class="btn-success">Create User</a>
+<div class="container" ui-view="">
 	 <h3>Users List</h3>
+	 <h3 ng-if="user_registered" class="panel-title">User Registered successfully</h3>
 	 <table class="table table-bordered table-hover table-striped">
 
 		 <tr>
@@ -11,7 +13,7 @@
 			 <th>Actions</th>
 		 </tr>
 		 	<!--<tr dir-paginate="user in users |  orderBy: 'display_name' | itemsPerPage: itemsPerPage"  total-items="userscount" current-page="pagination.current">-->
-		 	<tr dir-paginate="user in users |  orderBy: 'display_name' | itemsPerPage: itemsPerPage">
+		 	<tr dir-paginate="user in users |  orderBy:'-ID'| itemsPerPage: itemsPerPage">
 						<td>{{user.ID}}</td>
 						<td>{{user.display_name}}</td>
 						<td>{{user.user_email}}</td>
