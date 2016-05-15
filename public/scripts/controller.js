@@ -4,7 +4,7 @@
 
 var raControllers = angular.module('raApp.controllers', []);
 
-raControllers.controller('userController', function($scope,userService,$routeParams,$rootScope,$location) {
+raControllers.controller('userController',['fileUpload','$window','$scope','userService','$routeParams','$rootScope','$location',function(fileUpload,$window,$scope,userService,$routeParams,$rootScope,$location) {
 	$scope.userscount = 0;
 
 	// pagination variables
@@ -37,14 +37,42 @@ raControllers.controller('userController', function($scope,userService,$routePar
 	}
 
 	$scope.submitForm  = function () {
-		userService.createUser($scope.profile).success(function (response) {
-			if(response.insertId && response.affectedRows > 0){
-				$rootScope.user_registered = 1;
-				$location.url('/users');
-			}
-		})
+		var file = $scope.profile.userPhoto;
+		var newUserDetails = $scope.profile;
+		newUserDetails.user_photo = $scope.profile.userPhoto.name;
+		delete newUserDetails.userPhoto;
+		var uploadUrl = "http://localhost:1321/upload";
+		fileUpload.uploadFileToUrl(file, uploadUrl,function (res) {
+
+		});
+		newUserDetails.userPhoto = $scope.profile.userPhoto;
+			userService.createUser(newUserDetails).success(function (response) {
+				console.log(response);
+				if(response.insertId && response.affectedRows > 0){
+					$rootScope.user_registered = 1;
+					$location.url('/users');
+				}
+			})
 	}
-});
+
+	$scope.upload = function (file) {
+		console.log(file);
+		Upload.upload({
+			url: 'http://localhost:1321/upload', //webAPI exposed to upload the file
+			data:{file:file} //pass file as data, should be user ng-model
+		}).then(function (resp) { //upload function returns a promise
+			if(resp.data.error_code === 0){ //validate success
+				$window.alert('Success ' + resp.config.data.file.name + 'uploaded. Response: ');
+			} else {
+				$window.alert('an error occured');
+			}
+		}, function (resp) { //catch error
+			console.log('Error status: ' + resp.status);
+			$window.alert('Error status: ' + resp.status);
+		});
+	};
+
+}]);
 
 
 

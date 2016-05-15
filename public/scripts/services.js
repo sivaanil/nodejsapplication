@@ -23,9 +23,9 @@ this.getData = function() {
 
     }
 
-    this.createUser = function(newUserData){
+    this.createUser = function(newUserData,fileInfo){
         var newUserDetails = {
-            'newUserDetails' : newUserData
+            'newUserDetails' : newUserData,
         };
         return $http({
             method: 'POST',

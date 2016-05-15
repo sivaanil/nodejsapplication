@@ -62,6 +62,7 @@ function createUser(newUser,cb){
 			cb(rows);
 		}
 	});
+	console.log(query.sql);
 }
 
 

@@ -1,6 +1,5 @@
 var express = require('express');
 var config = require('./config.json');
-console.log(config.host, config.port);
 var db = require('./db.js');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -8,6 +7,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var underscore = require('underscore');
+var multer = require('multer');
 var url = require('url');
 var app = express();
 var cors = require('cors');
@@ -44,11 +44,39 @@ app.get('/fetchuser/:id',function(req, res){
 
 app.post('/user/createuser',function (req,res) {
 	var newUser = req.body.newUserDetails;
+	var fileInfo = req.file;
+	console.log(newUser);
 	db.createUser(newUser,function (finalData) {
+		if(finalData.rowsAffected > 0){
+
+
+		}
 		res.json(finalData);
 	});
 })
 
+
+// For File upload
+var storage	=	multer.diskStorage({
+	destination: function (req, file, callback) {
+		callback(null, './uploads');
+	},
+	filename: function (req, file, callback) {
+		callback(null, file.originalname);
+	}
+});
+var upload = multer({ storage : storage}).single('file');
+
+app.post('/upload', function(req, res) {
+	upload(req,res,function(err) {
+		if(err) {
+			return res.end(JSON.stringify(err));
+		}
+		res.end(JSON.stringify(req.file));
+	});
+});
+
+// File upload end
 
 app.get('/user/update/:id',function (req,res) {
 	console.log('sdsd');
